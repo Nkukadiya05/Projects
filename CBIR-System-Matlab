@@ -1,0 +1,60 @@
+% % Image preprocessing
+ImagePath = '/Users/macintosh/Desktop/Engineering/Image Process/ images_DE';
+FileExt = fullfile(ImagePath,'*.jpg');
+ImageData = dir(FileExt); % Preallocating the directory for image data.
+% different folder
+Image_Preprocessed = '/Users/macintosh/Desktop/Engineering/Image Process/ images_DE/Image_Preprocessed';
+if ~exist(Image_Preprocessed,"dir") % allocating directory to terminate the process to retrieve images.
+mkdir(Image_Preprocessed); % Generating directory end
+for X = 1:length(ImageData) % Initiating loop
+File_Name = ImageData(X).name;
+Full_File = fullfile(ImagePath,File_Name); % loading the full file to repeat the
+code for each and every image one by one
+Array_Image = imread(Full_File); % Reading the directory
+Image_Processed = Array_Image;
+imshow(Image_Processed);
+Image_Resized = imresize(Image_Processed,[500,500]); % Transforming the
+images into 500x500 pixels
+imshow(Image_Resized);
+Image_Gray = rgb2gray(Image_Resized); % Transforming the images from
+RGB to gray scale
+imshow(Image_Gray); imwrite(Image_Gray,fullfile(Image_Preprocessed,
+['Preprocessed_',File_Name])); % Writing the whole file data and transfering to images in other foldder
+Denoised_Image = imgaussfilt(Image_Gray,2); % Apply the denoise filter from gray image
+imshow(Denoised_Image);
+imwrite(Denoised_Image,fullfile(Image_Preprocessed, ['Denoised_',File_Name])); % % Writing the whole file data and transfering to images in other foldder
+end
+% PART 2
+% %Feature Annotation
+% Define image data using cell arrays Annotations = {
+'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/
+ Albatros.jpg', {'Bird','Blue','Albatros'}, 'A big bird flying on the sea'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/
+Avocado.jpg', {'Fruit','Avocado','Healthy'}, 'Most favourite creamy fruit'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/
+BlueJay.jpg', {'Bird','Blue','Bluejay'}, 'A beautiful bird sitting on the branch'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/Boat.jpg',
+{'Boat','Wood','Water'}, 'A wooden boat floating on the water'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/Cat.jpg',
+{'Animal','Cat','Tiny'}, 'A blue-eyed cat staring something'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/
+DragonFruit.jpg', {'Fruit','Red','DragonFruit'}, 'Red coloured very healthy fruit'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/
+Flamingo.jpg', {'Animal','Pink','Flamingo'}, 'Pink animal on the wallpaper'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/Fox.jpg',
+{'Animal','Wild','Fox'}, 'Wild Fox in the snow'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/
+Grapes.jpg', {'Fruit','Juicy','Grapes'}, 'Very juicy fruit hanging with the shrub'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/Hen.jpg',
+{'Bird','Hen','White'}, 'A red-beaked bird staring something'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/Lady.jpg',
+{'Human','Lady','Dress'}, 'A beautiful lady standing on the heels'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/
+Orange.jpg', {'Fruit','Orange','Juicy'}, 'A very juicy orange fruit'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/Owl.jpg',
+{'Bird','Owl','Big'}, 'A big white bird sitting'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/
+PassionFruit.jpg', {'Fruit','Passion','Sweet'}, 'A very sweet fruit in the bowl'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/
+Peacock.jpg', {'Bird','Peacock','Big'}, 'A very big colourful bird'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/
+Pigeon.jpg', {'Bird','Pigeon','Gray'}, 'A blue-necked bird'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/
+Pixabay.jpg', {'Bird','Pixabay','Hue'}, 'A beautiful bird sitting on the tree'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/
+Pomegranate.jpg', {'Fruit','Pomegranate','Red'}, 'Very tasty fruit on the tree'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/
+Shoes.jpg', {'Shoes','Legs','White'}, 'A lady wearing white shoes'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/
+Spinach.jpg', {'Veg','Spinach','Green'}, 'Very healthy leafy vegetable'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/
+Sunflower.jpg', {'Flower','Sunflower','Yellow'}, 'A big yellow beautiful flower'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/Swan.jpg',
+{'Bird','Swan','White'}, 'A big white bird in the snow'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/
+Tomato.jpg', {'Veg','Tomato','Red'}, 'A ripe red tomato ready to be picked'; 'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/Tram.jpg',
+{'Travel','Tram','Small'}, 'A yellow tram on the street';
+
+'https://github.com/Nkukadiya05/Preprocessed_images/blob/main/Yacht.jpg', {'Boat','Yacht','White'}, 'A white yacht on the water'
+};
+metadataFolder = 'metadata';
+if ~exist(metadataFolder, 'dir') % Preallocating the directory to save metadata if it doesnt exist alreay
+mkdir(metadataFolder); % Generating directory end
